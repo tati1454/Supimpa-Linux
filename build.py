@@ -1,6 +1,6 @@
 import os
 
-from utils import create_folder
+from utils import create_folder, download_file
 import buildgnu
 
 def create_rootfs():
@@ -41,13 +41,17 @@ if __name__ == "__main__":
     create_rootfs()
     
     LATEST_GLIBC_VERSION = "2.35"
+    print("Building and installing glibc")
     buildgnu.build_gnu_package("glibc", LATEST_GLIBC_VERSION)
 
     LATEST_COREUTILS_VERSION = "9.0"
+    print("Building and installing coreutils")
     buildgnu.build_gnu_package("coreutils", LATEST_COREUTILS_VERSION)
 
     LATEST_BASH_VERSION = "5.1.16"
+    print("Building and installing bash")
     buildgnu.build_gnu_package("bash", LATEST_BASH_VERSION)
 
     LATEST_NCURSES_VERSION = "6.3"
-    buildgnu.build_gnu_package("ncurses", LATEST_NCURSES_VERSION)
+    print("Building and installing ncurses")
+    buildgnu.build_gnu_package("ncurses", LATEST_NCURSES_VERSION, "--with-shared --with-termlib")

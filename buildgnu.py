@@ -26,15 +26,16 @@ def build_buildtree(buildtree, autoconf_args):
     os.chdir(buildtree)
     create_folder("./build")
     os.chdir("./build")
-    os.system(f"../configure --prefix {DEFAULT_PREFIX} {autoconf_args} && make -j4")
+    os.system(f"(../configure --prefix {DEFAULT_PREFIX} {autoconf_args} && make -j4) > build.log 2>&1")
     os.chdir(wd)
 
 def install(buildtree):
     wd = os.getcwd()
     os.chdir(buildtree)
     os.chdir("./build")
-    os.environ["DESTDIR"] = os.path.abspath(f"{wd}/{ROOTFS_DIRECTORY}")
-    os.system("make install")
+    rootfs_absolute_path = os.path.abspath(f"{wd}/{ROOTFS_DIRECTORY}")
+    os.environ["DESTDIR"] = rootfs_absolute_path
+    os.system(f"make DESTDIR={rootfs_absolute_path} install > install.log 2>&1")
     os.chdir(wd)
 
 
@@ -42,4 +43,3 @@ def build_gnu_package(name, version, configure_flags=""):
     buildtree = get_source(name, version)
     build_buildtree(buildtree, configure_flags)
     install(buildtree)
-
