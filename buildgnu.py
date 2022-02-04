@@ -40,6 +40,10 @@ def install(buildtree):
 
 
 def build_gnu_package(name, version, configure_flags=""):
+    print(f"Building and installing {name}-{version}")
     buildtree = get_source(name, version)
+    print(f"Compiling {name}")
     build_buildtree(buildtree, configure_flags)
+    print(f"Installing {name}")
     install(buildtree)
+    print("")
