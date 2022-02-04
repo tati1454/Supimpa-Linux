@@ -50,4 +50,7 @@ if __name__ == "__main__":
     buildgnu.build_gnu_package("bash", LATEST_BASH_VERSION)
 
     LATEST_NCURSES_VERSION = "6.3"
-    buildgnu.build_gnu_package("ncurses", LATEST_NCURSES_VERSION, "--with-shared --with-termlib")
+    buildgnu.build_gnu_package("ncurses", LATEST_NCURSES_VERSION, "--with-shared --with-termlib --with-versioned-syms")
+
+    LATEST_GREP_VERSION = "3.7"
+    buildgnu.build_gnu_package("grep", LATEST_GREP_VERSION)
