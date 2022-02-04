@@ -57,3 +57,4 @@ if __name__ == "__main__":
     buildgnu.build_gnu_package("grep", LATEST_GREP_VERSION)
 
     buildnongnu.build_pcre2()
+    buildnongnu.build_openrc("0.44.10")
