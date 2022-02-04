@@ -44,7 +44,7 @@ if __name__ == "__main__":
     buildgnu.build_gnu_package("glibc", LATEST_GLIBC_VERSION)
 
     LATEST_COREUTILS_VERSION = "9.0"
-    buildgnu.build_gnu_package("coreutils", LATEST_COREUTILS_VERSION, "--disable-selinux")
+    buildgnu.build_gnu_package("coreutils", LATEST_COREUTILS_VERSION, "--without-selinux")
 
     LATEST_BASH_VERSION = "5.1.16"
     buildgnu.build_gnu_package("bash", LATEST_BASH_VERSION)
