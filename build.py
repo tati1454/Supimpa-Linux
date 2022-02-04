@@ -2,6 +2,7 @@ import os
 
 from utils import create_folder, download_file
 import buildgnu
+import buildnongnu
 
 def create_rootfs():
     create_folder("rootfs")
@@ -54,3 +55,5 @@ if __name__ == "__main__":
 
     LATEST_GREP_VERSION = "3.7"
     buildgnu.build_gnu_package("grep", LATEST_GREP_VERSION)
+
+    buildnongnu.build_pcre2()
