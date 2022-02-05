@@ -16,7 +16,7 @@ def download_file(url, output):
 
     with requests.get(url, stream=True) as r:
         total_size = 0
-        if "Content-Lenght" in r.headers:
+        if "Content-Length" in r.headers:
             total_size = int(r.headers["Content-Length"])
 
         with open(output, "wb") as f:
