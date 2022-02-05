@@ -20,6 +20,7 @@ def create_rootfs():
     create_folder("rootfs/home")
     create_folder("rootfs/root")
     create_folder("rootfs/tmp")
+    create_folder("rootfs/run")
 
     os.chdir("./rootfs")
     if not os.path.exists("./sbin"):
@@ -34,6 +35,9 @@ def create_rootfs():
     if not os.path.exists("./lib64"):
         os.symlink("./usr/lib64", "./lib64")
 
+    with open("./etc/fstab", "w") as f:
+        f.writelines(["none\t/proc\tprocfs\tdeafult",])
+    
     os.chdir("..")
 
 if __name__ == "__main__":
@@ -49,6 +53,9 @@ if __name__ == "__main__":
 
     LATEST_BASH_VERSION = "5.1.16"
     buildgnu.build_gnu_package("bash", LATEST_BASH_VERSION)
+    os.chdir("./rootfs")
+    if not os.path.exists("./bin/sh"):
+        os.symlink("./bin/bash", "./bin/sh")
 
     LATEST_NCURSES_VERSION = "6.3"
     buildgnu.build_gnu_package("ncurses", LATEST_NCURSES_VERSION, "--with-shared --with-termlib --with-versioned-syms")
