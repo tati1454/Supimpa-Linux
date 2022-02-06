@@ -66,3 +66,37 @@ def build_selinux():
     rootfs_absolute_path = os.path.abspath(f"{wd}/rootfs")
     os.system(f"make CFLAGS=-Wno-unused-variable DESTDIR={rootfs_absolute_path} install -j4")
     os.chdir(wd)
+
+def build_audit_userspace():
+    wd = os.getcwd()
+    download_file("https://github.com/linux-audit/audit-userspace/archive/refs/tags/v3.0.7.tar.gz", "./tarballs/audit-userspace-3.0.7.tar.gz")
+    extract_tarball("./tarballs/audit-userspace-3.0.7.tar.gz", "./buildtrees")
+    os.chdir("./buildtrees/audit-userspace-3.0.7")
+    rootfs_absolute_path = os.path.abspath(f"{wd}/rootfs")
+    os.system("./autogen.sh && mkdir -p ./build")
+    os.chdir("./build")
+    os.system("../configure --prefix=/usr && make -j4")
+    os.system(f"make DESTDIR={rootfs_absolute_path} install")
+    os.chdir(wd)
+
+def build_libcap_ng():
+    wd = os.getcwd()
+    download_file("https://github.com/stevegrubb/libcap-ng/archive/refs/tags/v0.8.2.tar.gz", "./tarballs/libcap-ng-0.8.2.tar.gz")
+    extract_tarball("./tarballs/libcap-ng-0.8.2.tar.gz", "./buildtrees")
+    os.chdir("./buildtrees/libcap-ng-0.8.2")
+    rootfs_absolute_path = os.path.abspath(f"{wd}/rootfs")
+    os.system("./autogen.sh && mkdir -p ./build")
+    os.chdir("./build")
+    os.system("../configure --prefix=/usr && make -j4")
+    os.system(f"make DESTDIR={rootfs_absolute_path} install")
+    os.chdir(wd)
+
+def build_net_tools():
+    wd = os.getcwd()
+    download_file("https://sourceforge.net/projects/net-tools/files/net-tools-2.10.tar.xz", "./tarballs/net-tools-2.10.tar.xz")
+    extract_tarball("./tarballs/net-tools-2.10.tar.xz", "./buildtrees")
+    os.chdir("./buildtrees/net-tools-2.10")
+    rootfs_absolute_path = os.path.abspath(f"{wd}/rootfs")
+    os.system("make config && make -j4")
+    os.system(f"make DESTDIR={rootfs_absolute_path} install")
+    os.chdir(wd)

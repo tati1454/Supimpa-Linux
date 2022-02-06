@@ -1,3 +1,4 @@
+from distutils.command.build import build
 import os
 
 from utils import create_folder, download_file
@@ -49,7 +50,7 @@ if __name__ == "__main__":
     buildgnu.build_gnu_package("glibc", LATEST_GLIBC_VERSION)
 
     LATEST_COREUTILS_VERSION = "9.0"
-    buildgnu.build_gnu_package("coreutils", LATEST_COREUTILS_VERSION, "--without-selinux")
+    buildgnu.build_gnu_package("coreutils", LATEST_COREUTILS_VERSION)
 
     LATEST_BASH_VERSION = "5.1.16"
     buildgnu.build_gnu_package("bash", LATEST_BASH_VERSION)
@@ -76,3 +77,6 @@ if __name__ == "__main__":
     buildnongnu.build_procps()
     buildnongnu.build_kbd()
     buildnongnu.build_selinux()
+    buildnongnu.build_audit_userspace()
+    buildnongnu.build_libcap_ng()
+    buildnongnu.build_net_tools()
