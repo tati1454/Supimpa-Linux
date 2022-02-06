@@ -75,3 +75,4 @@ if __name__ == "__main__":
     buildnongnu.build_util_linux()
     buildnongnu.build_procps()
     buildnongnu.build_kbd()
+    buildnongnu.build_selinux()

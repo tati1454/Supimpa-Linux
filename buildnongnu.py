@@ -31,7 +31,7 @@ def build_util_linux():
     os.system("./autogen.sh && mkdir -p ./build")
     os.chdir("./build")
     os.system("../configure --prefix=/usr && make -j4")
-    os.system(f"sudo make DESTDIR={rootfs_absolute_path} install-strip")
+    os.system(f"make DESTDIR={rootfs_absolute_path} install-strip")
     os.chdir(wd)
 
 def build_procps():
@@ -43,7 +43,7 @@ def build_procps():
     os.system("./autogen.sh && mkdir -p ./build")
     os.chdir("./build")
     os.system("../configure --prefix=/usr && make -j4")
-    os.system(f"sudo make DESTDIR={rootfs_absolute_path} install")
+    os.system(f"make DESTDIR={rootfs_absolute_path} install")
     os.chdir(wd)
 
 def build_kbd():
@@ -55,5 +55,14 @@ def build_kbd():
     os.system("./autogen.sh && mkdir -p ./build")
     os.chdir("./build")
     os.system("../configure --prefix=/usr && make -j4")
-    os.system(f"sudo make DESTDIR={rootfs_absolute_path} install")
+    os.system(f"make DESTDIR={rootfs_absolute_path} install")
+    os.chdir(wd)
+
+def build_selinux():
+    wd = os.getcwd()
+    download_file("https://github.com/SELinuxProject/selinux/releases/download/3.3/selinux-3.3.tar.gz", "./tarballs/selinux-3.3.tar.gz")
+    extract_tarball("./tarballs/selinux-3.3.tar.gz", "./buildtrees")
+    os.chdir("./buildtrees/selinux-3.3")
+    rootfs_absolute_path = os.path.abspath(f"{wd}/rootfs")
+    os.system(f"make CFLAGS=-Wno-unused-variable DESTDIR={rootfs_absolute_path} install -j4")
     os.chdir(wd)
