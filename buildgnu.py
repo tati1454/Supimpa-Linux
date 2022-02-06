@@ -23,9 +23,10 @@ def build_buildtree(buildtree, autoconf_args):
     os.chdir(buildtree)
     create_folder("./build")
     os.chdir("./build")
-    exit_code = os.system(f"(../configure --prefix {DEFAULT_PREFIX} {autoconf_args} && make -j4) > build.log 2>&1")
+    exit_code = os.system(f"../configure --prefix {DEFAULT_PREFIX} {autoconf_args} && make -j4")
     if exit_code != 0:
-        print(f"Error building package. Check {buildtree}/build.log")
+        print(f"Error building package.)")
+        exit(1)
     os.chdir(wd)
 
 def install(buildtree):
@@ -34,9 +35,10 @@ def install(buildtree):
     os.chdir("./build")
     rootfs_absolute_path = os.path.abspath(f"{wd}/{ROOTFS_DIRECTORY}")
     os.environ["DESTDIR"] = rootfs_absolute_path
-    exit_code = os.system(f"make DESTDIR={rootfs_absolute_path} install > install.log 2>&1")
+    exit_code = os.system(f"make DESTDIR={rootfs_absolute_path} install")
     if exit_code != 0:
-        print(f"Error installing package. Check {buildtree}/install")
+        print(f"Error installing package.")
+        exit(1)
     os.chdir(wd)
 
 
