@@ -13,7 +13,10 @@ def get_source(pkgname, version):
     tarballpath = f"{TARBALLS_DOWNLOAD_DIRECTORY}{filename}"
     buildtreepath = f"{BUILDTREES_DIRECTORY}{pkgname}-{version}"
 
-    download_file(f"{GNU_MIRROR}{pkgname}/{filename}", tarballpath)
+    if not download_file(f"{GNU_MIRROR}{pkgname}/{filename}", tarballpath):
+        filename = filename.replace(".gz", ".xz")
+        download_file(f"{GNU_MIRROR}{pkgname}/{filename}", tarballpath)
+
     extract_tarball(tarballpath, BUILDTREES_DIRECTORY)
     
     return buildtreepath

@@ -64,6 +64,9 @@ if __name__ == "__main__":
     LATEST_GREP_VERSION = "3.7"
     buildgnu.build_gnu_package("grep", LATEST_GREP_VERSION)
 
+    LATEST_FINDUTILS_VERSION = "4.9.0"
+    buildgnu.build_gnu_package("findutils", LATEST_FINDUTILS_VERSION)
+
     buildnongnu.build_pcre2()
     buildnongnu.build_openrc("0.44.10")
     buildnongnu.build_util_linux()
