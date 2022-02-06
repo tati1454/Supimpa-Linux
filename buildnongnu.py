@@ -45,3 +45,15 @@ def build_procps():
     os.system("../configure --prefix=/usr && make -j4")
     os.system(f"sudo make DESTDIR={rootfs_absolute_path} install")
     os.chdir(wd)
+
+def build_kbd():
+    wd = os.getcwd()
+    download_file("https://github.com/legionus/kbd/archive/refs/tags/v2.4.0.tar.gz", "./tarballs/kbd-2.4.0.tar.gz")
+    extract_tarball("./tarballs/kbd-2.4.0.tar.gz", "./buildtrees")
+    os.chdir("./buildtrees/kbd-2.4.0")
+    rootfs_absolute_path = os.path.abspath(f"{wd}/rootfs")
+    os.system("./autogen.sh && mkdir -p ./build")
+    os.chdir("./build")
+    os.system("../configure --prefix=/usr && make -j4")
+    os.system(f"sudo make DESTDIR={rootfs_absolute_path} install")
+    os.chdir(wd)

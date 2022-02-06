@@ -36,7 +36,7 @@ def create_rootfs():
         os.symlink("./usr/lib64", "./lib64")
 
     with open("./etc/fstab", "w") as f:
-        f.writelines(["none\t/proc\tproc\tdeafult",])
+        f.writelines(["none\t/proc\tproc\tdefault",])
     
     os.chdir("..")
 
@@ -67,7 +67,11 @@ if __name__ == "__main__":
     LATEST_FINDUTILS_VERSION = "4.9.0"
     buildgnu.build_gnu_package("findutils", LATEST_FINDUTILS_VERSION)
 
+    LATEST_GZIP_VERSION = "1.10"
+    buildgnu.build_gnu_package("gzip", LATEST_GZIP_VERSION)
+
     buildnongnu.build_pcre2()
     buildnongnu.build_openrc("0.44.10")
     buildnongnu.build_util_linux()
     buildnongnu.build_procps()
+    buildnongnu.build_kbd()
