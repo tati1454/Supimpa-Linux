@@ -15,6 +15,9 @@ def download_file(url, output):
         return
 
     with requests.get(url, stream=True) as r:
+        if r.status_code == 404:
+            return False
+
         total_size = 0
         if "Content-Length" in r.headers:
             total_size = int(r.headers["Content-Length"])
@@ -30,6 +33,8 @@ def download_file(url, output):
                     print(f"\rDownloading: {url} to {output}", end="")
 
             print("")
+
+        return True
 
 def extract_tarball(tarball, output_directory):
     tarballfolder = Path(tarball).with_suffix('').stem
